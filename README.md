@@ -9,6 +9,7 @@ This is a simple OAuth 2.0 mock server implemented in Go. It's designed to simul
 - Returns static user information
 - Easy to configure via environment variables
 - Lightweight and easy to deploy
+- Available as a GitHub Action for easy integration in CI/CD workflows
 
 ## Prerequisites
 
@@ -29,7 +30,7 @@ The server can be configured using the following environment variables:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/oauth-mock-server.git
+   git clone https://github.com/shaharia-lab/oauth-mock-server.git
    cd oauth-mock-server
    ```
 
@@ -69,6 +70,27 @@ The server can be configured using the following environment variables:
    ```
    Authorization: Bearer <your_access_token>
    ```
+
+## Using the GitHub Action
+
+To use this OAuth mock server as a GitHub Action in your workflows:
+
+```yaml
+steps:
+  - uses: actions/checkout@v2
+  - name: Setup OAuth Mock Server
+    uses: shaharia-lab/oauth-mock-server@main
+    with:
+      port: 8080
+      client_id: my-client
+      client_secret: my-secret
+```
+
+Replace `shaharia-lab/oauth-mock-server@main` with the actual path to the action repository and the branch or tag you want to use.
+
+This action sets up the OAuth mock server as a Docker container within your GitHub Actions workflow. The server will be accessible at `http://localhost:8080` (or whatever port you specify) within the GitHub Actions runner.
+
+You can customize the `port`, `client_id`, and `client_secret` inputs as needed for your specific use case.
 
 ## License
 

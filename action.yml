@@ -1,0 +1,22 @@
+name: 'Setup OAuth Mock Server'
+description: 'Sets up and runs an OAuth mock server for testing purposes'
+inputs:
+  port:
+    description: 'Port to run the OAuth mock server on'
+    required: false
+    default: '8080'
+  client_id:
+    description: 'Client ID for the OAuth mock server'
+    required: false
+    default: 'test-client'
+  client_secret:
+    description: 'Client Secret for the OAuth mock server'
+    required: false
+    default: 'test-secret'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    PORT: ${{ inputs.port }}
+    CLIENT_ID: ${{ inputs.client_id }}
+    CLIENT_SECRET: ${{ inputs.client_secret }}
