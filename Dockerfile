@@ -1,4 +1,4 @@
-FROM golang:1.18-alpine
+FROM golang:1.22-alpine
 
 WORKDIR /app
 
@@ -9,13 +9,13 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the source code
-COPY main.go ./
+COPY . .
 
 # Build the application
-RUN go build -o oauth-mock-server .
+RUN go build -o /oauth-mock-server
 
 # Make sure the binary is executable
-RUN chmod +x oauth-mock-server
+RUN chmod +x /oauth-mock-server
 
 # Command to run the executable
-CMD ["./oauth-mock-server"]
+CMD ["/oauth-mock-server"]
