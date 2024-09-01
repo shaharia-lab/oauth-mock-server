@@ -15,3 +15,6 @@ jobs:
       - name: Test OAuth Mock Server
         run: |
           curl -I http://localhost:8080/authorize?client_id=test-client&redirect_uri=http://localhost:8081/callback&response_type=code&scope=openid%20profile%20email&state=state123
+      - name: Run Other Tests
+        run: |
+            echo "Finished testing OAuth mock server"
