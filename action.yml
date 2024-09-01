@@ -15,7 +15,7 @@ inputs:
     default: 'test-secret'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/shaharia-lab/oauth-mock-server:0.0.1'
   env:
     PORT: ${{ inputs.port }}
     CLIENT_ID: ${{ inputs.client_id }}

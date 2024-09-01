@@ -1,18 +1,16 @@
 #!/bin/sh
 set -e
 
-# Start the OAuth mock server in the background
-/oauth-mock-server &
-
-# Store the PID of the server
-SERVER_PID=$!
-
 # Function to check if the server is up
 check_server() {
     curl -s -o /dev/null -w "%{http_code}" http://localhost:${PORT:-8080}/authorize
 }
 
 # Wait for the server to be ready
+echo "Starting OAuth mock server..."
+/oauth-mock-server &
+SERVER_PID=$!
+
 echo "Waiting for OAuth mock server to be ready..."
 for i in $(seq 1 30); do
     if [ "$(check_server)" = "200" ]; then
@@ -27,11 +25,5 @@ if [ "$i" = "30" ]; then
     exit 1
 fi
 
-# Keep the action running
-tail -f /dev/null &
-
-# Wait for any process to exit
-wait -n
-
-# Exit with status of process that exited first
-exit $?
+# Keep the action running by tailing the server process
+tail --pid=$SERVER_PID -f /dev/null
